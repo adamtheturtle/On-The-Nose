@@ -8,20 +8,25 @@ $def with (noses=[(40, 300),(10,10)])
   <link href="static/css/form_page.css" rel="stylesheet" type="text/css" />
   <link href="static/favicon.ico" rel="icon" type="image/png">
 </head>
-<body id="bod" style="background-repeat:no-repeat;">
+<body style="background-image:url('static/img/penguin.png'); background-repeat:no-repeat;background-size: cover; -webkit-background-size: cover;">
+  <div id="adam" style="width:400px; height:600px;background-image:url('static/img/original_background.jpg');background-repeat:no-repeat; margin-top:600px; margin:auto;">
+  </div>
+
   <script src="http://code.jquery.com/jquery-latest.js"></script>
   <script src="static/js/bootstrap.min.js"></script>
 
   <script>
-    $$(document).mousemove(function(e){
+    $$('#adam').mousemove(function(e){
       var shortest_distance = -1;
       var shortest_x = -1;
       var shortest_y = -1;
 
       $for x, y in noses:
-        console.log($x);
-        var x_dist = e.pageX - $x;
-        var y_dist = e.pageY - $y;
+        var parentOffset = $$('#adam').offset();
+        var relX = e.pageX - parentOffset.left;
+        var relY = e.pageY - parentOffset.top;
+        var x_dist = relX - $x;
+        var y_dist = relY - $y;
         var distance = (x_dist * x_dist) + (y_dist * y_dist);
         if (shortest_distance === -1 || shortest_distance > distance) {
           shortest_distance = distance;
@@ -29,7 +34,7 @@ $def with (noses=[(40, 300),(10,10)])
           shortest_y = $y;
         }
   
-      $$('#bod').css('background-image', 'url(\'static/nose_images/' + shortest_x + ',' + shortest_y + '.png\')');
+      $$('#adam').css('background-image', 'url(\'static/nose_images/' + shortest_x + ',' + shortest_y + '.jpeg\')');
     });
     
   </script>
